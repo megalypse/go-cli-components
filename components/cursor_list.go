@@ -85,3 +85,9 @@ func (c *CursorListVertical) Dec() {
 func (c *CursorListVertical) GetCursor() int {
 	return c.Cursor
 }
+
+func (c *CursorListVertical) SetCursor(cursor int) {
+	if cursor >= 0 && cursor < len(c.Items) {
+		c.Cursor = cursor
+	}
+}
