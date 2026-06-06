@@ -1,4 +1,4 @@
-package components
+package clicomponents
 
 import (
 	"slices"

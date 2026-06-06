@@ -1,4 +1,4 @@
-package components
+package clicomponents
 
 import (
 	"strings"
@@ -6,18 +6,18 @@ import (
 	"github.com/charmbracelet/bubbletea"
 )
 
-type CursorListVertical struct {
+type CursorList struct {
 	Items      []string
 	Cursor     int
 	KeyActions []OnKeyFn
 	RenderSize int
 }
 
-func (c *CursorListVertical) Init() tea.Cmd {
+func (c *CursorList) Init() tea.Cmd {
 	return nil
 }
 
-func (c *CursorListVertical) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (c *CursorList) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		for _, keyAction := range c.KeyActions {
@@ -38,7 +38,7 @@ func (c *CursorListVertical) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return nil, nil
 }
 
-func (c *CursorListVertical) View() string {
+func (c *CursorList) View() string {
 	startDelta := c.RenderSize - c.Cursor
 	endDelta := (c.Cursor + 1) + c.RenderSize - len(c.Items)
 
@@ -52,7 +52,6 @@ func (c *CursorListVertical) View() string {
 		isPreviousOffLimits := c.RenderSize > 0 && i < c.Cursor-c.RenderSize
 		isNextOffLimits := c.RenderSize > 0 && i > c.Cursor+c.RenderSize
 		if isPreviousOffLimits || isNextOffLimits {
-
 			continue
 		}
 
@@ -70,23 +69,23 @@ func (c *CursorListVertical) View() string {
 	return listBuilder.String()
 }
 
-func (c *CursorListVertical) Inc() {
+func (c *CursorList) Inc() {
 	if c.Cursor < len(c.Items)-1 {
 		c.Cursor++
 	}
 }
 
-func (c *CursorListVertical) Dec() {
+func (c *CursorList) Dec() {
 	if c.Cursor > 0 {
 		c.Cursor--
 	}
 }
 
-func (c *CursorListVertical) GetCursor() int {
+func (c *CursorList) GetCursor() int {
 	return c.Cursor
 }
 
-func (c *CursorListVertical) SetCursor(cursor int) {
+func (c *CursorList) SetCursor(cursor int) {
 	if cursor >= 0 && cursor < len(c.Items) {
 		c.Cursor = cursor
 	}
